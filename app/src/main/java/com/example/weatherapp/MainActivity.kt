@@ -22,7 +22,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         weatherTask().execute()
-
     }
 
     inner class weatherTask() : AsyncTask<String, Void, String>() {
@@ -35,15 +34,13 @@ class MainActivity : AppCompatActivity() {
         }
 
         override fun doInBackground(vararg params: String?): String? {
-            var response:String?
-            try{
-                response = URL("https://api.openweathermap.org/data/2.5/weather?q=$CITY&units=metric&appid=$API").readText(
+            return try{
+                URL("https://api.openweathermap.org/data/2.5/weather?q=$CITY&units=metric&appid=$API").readText(
                     Charsets.UTF_8
                 )
             }catch (e: Exception){
-                response = null
+                null
             }
-            return response
         }
 
         override fun onPostExecute(result: String?) {
